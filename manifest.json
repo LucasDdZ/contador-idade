@@ -1,6 +1,6 @@
 {
-  "name": "Nome Completo do Seu App",
-  "short_name": "NomeCurto",
+  "name": "Descubra Quantos Dias Você Já Viveu",
+  "short_name": "Anos em dias",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
