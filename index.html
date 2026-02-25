@@ -50,6 +50,14 @@ button:hover {
     background: #5a67d8;
 }
 
+.share-btn {
+    background: #25D366;
+}
+
+.share-btn:hover {
+    background: #1ebe5d;
+}
+
 .resultado {
     margin-top: 20px;
     font-weight: bold;
@@ -65,29 +73,50 @@ button:hover {
     <input type="date" id="dataNascimento">
     <button onclick="calcularIdade()">Calcular</button>
     <div class="resultado" id="resultado"></div>
+    <button class="share-btn" onclick="compartilhar()">Compartilhar no WhatsApp</button>
 </div>
 
 <script>
-function calcularIdade() {
-    let nascimento = new Date(document.getElementById("dataNascimento").value);
-    let hoje = new Date();
+let textoCompartilhar = "";
 
-    if (!document.getElementById("dataNascimento").value) {
+function calcularIdade() {
+    let nascimentoInput = document.getElementById("dataNascimento").value;
+
+    if (!nascimentoInput) {
         document.getElementById("resultado").innerHTML = "Selecione uma data válida.";
         return;
     }
 
+    let nascimento = new Date(nascimentoInput);
+    let hoje = new Date();
     let diferenca = hoje - nascimento;
 
     let dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
     let horas = Math.floor(diferenca / (1000 * 60 * 60));
     let minutos = Math.floor(diferenca / (1000 * 60));
 
+    textoCompartilhar = 
+        "Eu já vivi aproximadamente:\n" +
+        dias + " dias\n" +
+        horas + " horas\n" +
+        minutos + " minutos!\n\n" +
+        "Descubra o seu também: " + window.location.href;
+
     document.getElementById("resultado").innerHTML =
         "Você já viveu aproximadamente:<br><br>" +
         dias + " dias<br>" +
         horas + " horas<br>" +
         minutos + " minutos";
+}
+
+function compartilhar() {
+    if (!textoCompartilhar) {
+        alert("Calcule sua idade primeiro!");
+        return;
+    }
+
+    let url = "https://wa.me/?text=" + encodeURIComponent(textoCompartilhar);
+    window.open(url, "_blank");
 }
 </script>
 
